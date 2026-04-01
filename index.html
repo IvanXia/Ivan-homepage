@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ivan 的个人主页 | Minimalist Tech Vibe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0a0a0a',
+                        card: '#111111',
+                        accent: '#38bdf8',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { background-color: #0a0a0a; color: #ededed; }
+
+        /* 高级交互：滚动渐显动画 */
+        .reveal-hidden {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 高级交互：时间轴青色微光 */
+        .timeline-line {
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+        }
+
+        /* 高级交互：毛玻璃 Toast 提示框 */
+        #toast {
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        }
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-accent selection:text-dark overflow-x-hidden">
+
+    <main class="max-w-4xl mx-auto px-6 py-20 md:py-32">
+
+        <header class="mb-32 flex flex-col-reverse md:flex-row items-center md:items-start justify-between gap-10 md:gap-8 reveal-hidden">
+            <div class="flex-1 text-center md:text-left">
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 text-transparent bg-clip-text bg-gradient-to-r from-gray-100 to-gray-500">
+                    你好，我是<span class="bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent">Ivan</span>。
+                </h1>
+                <p class="text-lg md:text-xl text-gray-400 leading-relaxed max-w-2xl mx-auto md:mx-0">
+                    我目前就读于西交利物浦大学经济与金融专业（GPA 4.0/4.0）。我对数字高度敏感，并致力于将严谨的财务逻辑与前沿的AI技术相结合。无论是参与企业IPO审计，还是在ESG创新挑战赛中构建数据模型，我都喜欢用清晰的逻辑去发现并解决业务本质问题。
+                </p>
+            </div>
+            <div class="shrink-0 relative group mt-4 md:mt-0">
+                <div class="absolute inset-0 bg-accent blur-3xl opacity-20 rounded-full group-hover:opacity-40 transition-opacity duration-500"></div>
+                <img src="avatar.jpg" alt="Ivan的头像" onerror="this.src='https://api.dicebear.com/7.x/notionists/svg?seed=Ivan'" class="relative w-36 h-36 md:w-48 md:h-48 rounded-full object-cover border-2 border-white/10 bg-card z-10 shadow-2xl transition-transform duration-500 group-hover:scale-105">
+            </div>
+        </header>
+
+        <section class="mb-32 reveal-hidden">
+            <h2 class="text-2xl font-semibold text-white mb-10 tracking-wide text-center md:text-left">教育与技能</h2>
+            
+            <div class="relative pl-6 md:pl-8">
+                <div class="absolute left-0 top-2 bottom-2 w-[2px] bg-white/10 timeline-line"></div>
+                
+                <div class="mb-10 relative group">
+                    <div class="absolute -left-[29px] md:-left-[37px] top-1.5 w-3 h-3 bg-dark border-2 border-gray-500 rounded-full transition-all duration-300 group-hover:border-accent group-hover:bg-accent group-hover:scale-125 group-hover:shadow-[0_0_12px_rgba(56,189,248,0.8)]"></div>
+                    <h3 class="text-xl font-medium text-gray-100 mb-1 group-hover:text-accent transition-colors">西交利物浦大学</h3>
+                    <p class="text-sm text-gray-400">经济与金融专业 (GPA: 4.0/4.0)</p>
+                </div>
+
+                <div class="mb-10 relative group">
+                    <div class="absolute -left-[29px] md:-left-[37px] top-1.5 w-3 h-3 bg-dark border-2 border-gray-500 rounded-full transition-all duration-300 group-hover:border-accent group-hover:bg-accent group-hover:scale-125 group-hover:shadow-[0_0_12px_rgba(56,189,248,0.8)]"></div>
+                    <h3 class="text-xl font-medium text-gray-100 mb-1 group-hover:text-accent transition-colors">ACCA (特许公认会计师)</h3>
+                    <p class="text-sm text-gray-400">共计13科，目前已通过5科</p>
+                </div>
+
+                <div class="relative group">
+                    <div class="absolute -left-[29px] md:-left-[37px] top-1.5 w-3 h-3 bg-dark border-2 border-gray-500 rounded-full transition-all duration-300 group-hover:border-accent group-hover:bg-accent group-hover:scale-125 group-hover:shadow-[0_0_12px_rgba(56,189,248,0.8)]"></div>
+                    <h3 class="text-xl font-medium text-gray-100 mb-1 group-hover:text-accent transition-colors">复合技术能力</h3>
+                    <p class="text-sm text-gray-400">熟练运用 AI 工具 (Prompting) 与数据可视化解决复杂业务问题</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-32">
+            <h2 class="text-2xl font-semibold text-white mb-10 tracking-wide text-center md:text-left reveal-hidden">核心经历</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="group relative rounded-2xl border border-white/5 bg-card p-4 transition-all duration-300 hover:-translate-y-2 hover:border-white/20 hover:shadow-[0_0_30px_rgba(56,189,248,0.05)] reveal-hidden" style="transition-delay: 100ms;">
+                    <div class="px-2 py-4">
+                        <div class="text-accent text-sm font-semibold mb-1 tracking-wider">立信会计师事务所</div>
+                        <h3 class="text-xl font-medium text-gray-100 mb-3 group-hover:text-white transition-colors">IPO审计与财务核查</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            参与苏州建院IPO及多家企业年审项目。深入一线参与存货盘点与核心客户访谈，检验业务真实性与合规性。在此期间，我不仅执行了底稿编制工作，还创新性地运用AI工具协助完成甲方凭证的整理与汇总，大幅提升了效率。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="group relative rounded-2xl border border-white/5 bg-card p-4 transition-all duration-300 hover:-translate-y-2 hover:border-white/20 hover:shadow-[0_0_30px_rgba(56,189,248,0.05)] reveal-hidden" style="transition-delay: 200ms;">
+                    <div class="px-2 py-4">
+                        <div class="text-accent text-sm font-semibold mb-1 tracking-wider">安永ESG创新挑战赛</div>
+                        <h3 class="text-xl font-medium text-gray-100 mb-3 group-hover:text-white transition-colors">华东总决赛第六名</h3>
+                        <p class="text-sm text-gray-400 leading-relaxed">
+                            担任数据与策略组核心成员，主导了地区20余家企业ESG报告的数据分析。基于数据洞察，团队提出了“供应链碳足迹追踪模型”等3项创新机制。我同时负责利用动态图表等可视化手段优化方案呈现，最终助力团队斩获赛区一等奖。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-32 reveal-hidden" style="transition-delay: 300ms;">
+            <h2 class="text-2xl font-semibold text-white mb-10 tracking-wide text-center md:text-left">全球足迹 (Global Footprint)</h2>
+            <div class="relative w-full h-[500px] rounded-2xl border border-white/5 bg-card overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+                <div id="echarts-map" class="w-full h-full"></div>
+                <div class="absolute top-4 left-4 z-10 pointer-events-none text-xs text-gray-400 flex flex-col gap-2 bg-dark/50 backdrop-blur-md p-3 rounded-xl border border-white/5">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-white shadow-[0_0_8px_#38bdf8]"></span>
+                        <span>Base Station (常驻地)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-accent opacity-80"></span>
+                        <span>Explored (已探索)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-gray-500 reveal-hidden">
+            <div class="flex flex-col md:flex-row items-center gap-4 md:gap-8">
+                <div class="flex items-center gap-2">
+                    <span>Email:</span>
+                    <a id="copy-email-btn" href="#" class="text-gray-300 hover:text-accent transition-colors cursor-pointer" title="点击复制邮箱地址">
+                        ivan060422@outlook.com
+                    </a>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span>Tel:</span>
+                    <span class="text-gray-300">+86 139 1379 8150</span>
+                </div>
+            </div>
+            
+            <div class="flex gap-6">
+                <a href="#" class="hover:text-white transition-colors tracking-wide">LinkedIn</a>
+            </div>
+        </footer>
+
+    </main>
+
+    <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm shadow-2xl z-50 flex items-center gap-2 pointer-events-none">
+        <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        <span>Email Copied!</span>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // ================= 1. 滚动渐显动画 =================
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            const revealElements = document.querySelectorAll('.reveal-hidden');
+            revealElements.forEach(el => observer.observe(el));
+            
+            // ================= 2. 邮箱一键复制 =================
+            const copyBtn = document.getElementById('copy-email-btn');
+            const toast = document.getElementById('toast');
+            let toastTimer;
+
+            copyBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const emailAddress = "ivan060422@outlook.com";
+                navigator.clipboard.writeText(emailAddress).then(() => {
+                    toast.classList.add('show');
+                    clearTimeout(toastTimer);
+                    toastTimer = setTimeout(() => { toast.classList.remove('show'); }, 2000);
+                }).catch(err => {
+                    console.error('无法复制文本: ', err);
+                });
+            });
+
+            // ================= 3. ECharts 数据终端风世界地图 =================
+            const chartDom = document.getElementById('echarts-map');
+            // 初始化 ECharts 实例，开启 SVG 渲染器提升清晰度
+            const myChart = echarts.init(chartDom, null, { renderer: 'svg' });
+            
+            // 经纬度数据定义
+            const baseData = [
+                { name: 'Base: 苏州', value: [120.62, 31.32] } // 苏州坐标
+            ];
+            
+            const exploredData = [
+                { name: '长春', value: [125.32, 43.88] },
+                { name: '武汉', value: [114.31, 30.52] },
+                { name: '上海', value: [121.47, 31.23] },
+                { name: '北京', value: [116.40, 39.90] },
+                { name: '厦门', value: [118.08, 24.48] },
+                { name: '香港', value: [114.17, 22.28] },
+                { name: '三亚', value: [109.51, 18.25] },
+                { name: '海口', value: [110.32, 20.03] },
+                { name: '广州', value: [113.26, 23.13] },
+                { name: '深圳', value: [114.05, 22.54] },
+                { name: '浙江', value: [120.15, 30.28] }, // 选取杭州坐标作为省份中心
+                { name: '南昌', value: [115.89, 28.68] },
+                { name: '南京', value: [118.79, 32.06] },
+                { name: '日本', value: [139.69, 35.68] }, // 东京周边
+                { name: '越南', value: [105.85, 21.02] }  // 河内周边
+            ];
+
+            const option = {
+                backgroundColor: 'transparent',
+                // Tooltip 极简暗黑毛玻璃风格
+                tooltip: {
+                    trigger: 'item',
+                    backgroundColor: 'rgba(10, 10, 10, 0.7)',
+                    borderColor: 'rgba(255, 255, 255, 0.1)',
+                    borderWidth: 1,
+                    padding: [8, 12],
+                    textStyle: { color: '#ededed', fontSize: 14, fontFamily: 'sans-serif' },
+                    formatter: function (params) {
+                        return `<div style="backdrop-filter: blur(4px); font-weight: 500;">
+                                    <span style="display:inline-block;margin-right:5px;border-radius:50%;width:8px;height:8px;background-color:${params.color};"></span>
+                                    ${params.name}
+                                </div>`;
+                    }
+                },
+                geo: {
+                    map: 'world',
+                    roam: true, // 允许鼠标缩放和平移拖拽
+                    zoom: 4,    // 默认放大倍数，使其聚焦在亚洲/中国版图周边
+                    center: [115, 28], // 将视图中心锁定在中国东部/华南周边
+                    scaleLimit: { min: 1, max: 10 }, // 缩放限制
+                    itemStyle: {
+                        areaColor: '#1a1a1a', // 陆地极暗灰
+                        borderColor: 'rgba(255, 255, 255, 0.08)', // 微弱的边框线
+                        borderWidth: 1
+                    },
+                    emphasis: {
+                        itemStyle: { areaColor: '#252525' }, // 鼠标悬停陆地时微微变亮
+                        label: { show: false }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Explored',
+                        type: 'scatter',
+                        coordinateSystem: 'geo',
+                        data: exploredData,
+                        symbolSize: 6,
+                        itemStyle: {
+                            color: '#38bdf8', // 统一青色圆点
+                            opacity: 0.8,
+                            shadowBlur: 10,
+                            shadowColor: '#38bdf8'
+                        }
+                    },
+                    {
+                        name: 'Base',
+                        type: 'effectScatter', // 呼吸光晕特效
+                        coordinateSystem: 'geo',
+                        data: baseData,
+                        symbolSize: 10,
+                        showEffectOn: 'render',
+                        rippleEffect: {
+                            brushType: 'stroke',
+                            scale: 4, // 扩散圈的范围
+                            period: 3 // 呼吸速度
+                        },
+                        itemStyle: {
+                            color: '#ffffff', // 苏州主节点用高亮纯白区别
+                            shadowBlur: 20,
+                            shadowColor: '#38bdf8'
+                        },
+                        label: {
+                            show: true,
+                            formatter: '{b}',
+                            position: 'right',
+                            color: '#ffffff',
+                            fontWeight: '600',
+                            fontSize: 12,
+                            textShadowBlur: 5,
+                            textShadowColor: '#38bdf8',
+                            offset: [5, 0]
+                        },
+                        zlevel: 1 // 确保高亮节点在最上层
+                    }
+                ]
+            };
+            
+            // 渲染图表
+            myChart.setOption(option);
+            
+            // 监听窗口大小变化，让地图自适应缩放
+            window.addEventListener('resize', function() {
+                myChart.resize();
+            });
+        });
+    </script>
+</body>
+</html>
+```
